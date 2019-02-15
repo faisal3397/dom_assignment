@@ -3,31 +3,25 @@
     console.log("test")
 
 $(document).ready(function(){
-    
-    var seconds = 0;
-    var minutes = 0;
-    var hours = 0;
+ 
     setInterval(digitalClock12, 1000);
     setInterval(digitalClock24, 1000);
-    setInterval(secondHand, 1000);
-    setInterval(minuteHand, 60000);
-    setInterval(hourHand, 3600000);
+    setInterval(analogClock, 1000);
 
 
-    function secondHand(){
-        seconds += 6
-        $(".second_hand").css("transform", `rotate(${seconds}deg)`);
+
+
+    function analogClock(){
+        var time = new Date();
+        var secondsAnalog = time.getSeconds();
+        var minutesAnalog = time.getMinutes();
+        var hoursAnalog = time.getHours();   
+        $(".second_hand").css("transform", "rotate("+(secondsAnalog)*6+"deg)");
+        $(".minute_hand").css("transform", "rotate("+(minutesAnalog)*6+"deg)");
+        $(".hour_hand").css("transform", "rotate("+(hoursAnalog%12)*30+"deg)")  
     }
 
-    function minuteHand(){
-        minutes+=30;
-        $(".minute_hand").css("transform", `rotate(${minutes}deg)`)
-    }
-
-    function hourHand(){
-        hours += 30
-        $(".minute_hand").css("transform", `rotate(${hours}deg)`)
-    }
+    
 
     $( "#btn" ).click(function() {
         $( ".digi_clock12" ).toggle("slow");
